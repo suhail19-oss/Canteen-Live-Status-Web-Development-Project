@@ -1,0 +1,135 @@
+*{
+    background-color: brown;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+ .container{
+    margin:4.5em;
+    display:grid;
+    grid-template-columns:60% 40% ;
+    column-gap: 2px;
+    }
+ .box1{
+    background-color: aquamarine;
+    border-radius:50px;
+    height:600px;
+    color:black;
+    }
+    .box2{background-color: yellowgreen;
+      border:3px solid black;
+      border-radius:50px;}
+
+    .box1 img{
+    width:100%;
+    border-radius:50px;
+    border:3px solid black;
+    }
+
+    form{
+        border-radius: 50px;
+        background-color: yellowgreen;
+        
+    }
+    
+    .container,
+    .form__input,
+    .form__button {
+        font: 500 1rem 'Quicksand', sans-serif;
+    }
+    
+    .form--hidden {
+        display: none;
+    }
+    .form__title {
+        margin-top: 3rem;
+        text-align: center;
+        background-color: yellowgreen;
+        text-decoration: underline;
+
+        }
+    
+    .form__message {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .form__message--success {
+        color: var(--color-success);
+    }
+    
+    .form__message--error {
+        color: var(--color-error);
+    }
+    
+    .form__input-group {
+        margin-bottom: 1rem;
+        
+    }
+    
+    .form__input {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+        border: 1px solid rgb(221, 221, 221);
+        outline: black;
+        background: #eeeeee;
+        
+    }
+    .form__input:focus {
+        border-color: var(--color-primary);
+        background: #ffffff;
+    }
+    .form__button {
+        margin-top:3rem;
+        margin-left: 12rem;
+        border:3px double red;
+        padding: 1rem;
+        font-weight: bold;
+        font-size: 32px;
+        color: black;
+        cursor: pointer;
+        background-color: yellow;
+        text-align: center;
+        }
+    
+    .form__button:hover {
+        background: var(--color-primary-dark);
+    }
+    
+    .form__button:active {
+        transform: scale(0.98);
+    }
+    
+    .form__text {
+        text-align: center;
+        background-color: yellowgreen;
+    }
+    
+    .form__link {
+        color: var(--color-secondary);
+        text-decoration: none;
+        cursor: pointer;
+        background-color: yellowgreen;
+    }
+    
+    .form__link:hover {
+        text-decoration: underline;
+    }
+.email{
+    background-color: yellowgreen;
+    font-size: 32px;
+    
+}
+.password{
+    background-color: yellowgreen;
+    font-size: 32px;
+}
+.login{
+    display: block;
+    text-align: center;
+    background-color: yellowgreen;
+    color: black;
+}

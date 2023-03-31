@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage Canteen Menu</title>
+    <link rel="stylesheet" href="heritagecanteenmenu.css">
+</head>
+<body>
+
+    <h1>Heritage Canteen Menu</h1>
+    <div class="vote">
+        <div class="upVote" id="upVote">
+            <img src="like.png" alt="">
+            <div class="countLike">0</div>
+        </div>
+        <div class="dislike" id="downVote">
+            <img src="dislike.png" alt="">
+            <div class="countDislike">0</div>
+        </div>
+    </div>
+    
+    <div>
+        <table border=2 width="1300">
+            <thead>
+                <th>Sno.</th>
+                <th>List Of Items</th>
+                <th>Status</th>
+            </thead>
+            <tbody id="tbody2"></tbody>
+        </table>
+    </div>
+    <br>
+    <form>
+        <label class="Name">Name: &nbsp</label>
+        <input id="name" type="text" class="text">
+        <br><br>        
+        <label id="description" class="Comments">Comments : </label>
+        <br>
+        <textarea id="descrip" cols="200" rows="10"></textarea>
+        <button id="subbtn">Submit</button>
+    </form>
+    <script type="module">
+        const names = document.getElementById('name');
+        const des = document.getElementById('descrip');
+
+        const submit = document.getElementById('subbtn');
+        const upvoted = document.getElementById('upVote');
+        const downvoted = document.getElementById('downVote');
+        submit.addEventListener('click', UploadReview);
+        // submit.addEventListener('click', Voted);
+        var ups = document.getElementsByClassName('countLike');
+        var down = document.getElementsByClassName('countDislike');
+
+        var cV = 0, cD = 0;
+        upvoted.addEventListener('click', function () {
+            cV++;
+            document.getElementsByClassName('countLike')[0].innerHTML = cV;
+            ups = cV;
+            Voted();
+        });
+        downvoted.addEventListener('click', function () {
+            cD++;
+            document.getElementsByClassName('countDislike')[0].innerHTML = cD;
+            down = cD;
+            Voted();
+        });
+
+        
+       
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        import { getDatabase, ref, child, onValue, get, set } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBF3UchNdUK24GnCnM83kmK_7cpebI3ksM",
+            authDomain: "winterofcode-d3c88.firebaseapp.com",
+            databaseURL: "https://winterofcode-d3c88-default-rtdb.firebaseio.com",
+            projectId: "winterofcode-d3c88",
+            storageBucket: "winterofcode-d3c88.appspot.com",
+            messagingSenderId: "954729425928",
+            appId: "1:954729425928:web:35573a03e1eb9f38cf75bd",
+            measurementId: "G-1T04LS6QVL"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+
+        
+        var sNo = 0;
+        var tbodyw = document.getElementById('tbody2');
+        function AddItemToTables(SNO, ListofItems, Availability) {
+            let trow = document.createElement("tr");
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+            let td6 = document.createElement('td');
+            td4.innerHTML = ++sNo;
+            td5.innerHTML = ListofItems;
+            td6.innerHTML = Availability;
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+            trow.appendChild(td6);
+            tbodyw.appendChild(trow);
+        }
+        function AddAllItemstoTables(menu) {
+            sNo = 0;
+            tbodyw.innerHTML = "";
+            menu.forEach(element => {
+                AddItemToTables(element.SNO, element.ListofItems, element.Availability);
+
+            });
+
+        }
+        
+
+        function GetAllDataOnceat() {
+            const dbRef = ref(db);
+            get(child(dbRef, "Menu/Heritage Canteen"))
+                .then((snapshot) => {
+                    var menu = [];
+                    snapshot.forEach(childSnapshot => {
+                        menu.push(childSnapshot.val());
+                    });
+                    AddAllItemstoTables(menu);
+                });
+        }
+        window.onload = GetAllDataOnceat; 
+        function UploadReview() {
+            set(ref(db, "Reviews/HeritageCanteen/" + names.value), {
+                UserName: names.value,
+                Comments: des.value,
+            });
+            alert("Review Uploaded.");
+        }
+        function Voted() {
+            set(ref(db, "Voting/Heritage"), {
+                Upvote: ups,
+                Downvote: down
+            });
+        }
+        
+        
+        
+        </script>
+    
+</body>
+</html>
